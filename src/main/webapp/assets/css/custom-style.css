@@ -1,0 +1,375 @@
+/* ============================================
+   NM TELECOM - SISTEMA DE DISEÑO ELEGANTE
+   Paleta: Azul Oscuro (#0A1E2E) + Turquesa (#2BA5A0)
+   ============================================ */
+
+:root {
+    /* Colores Corporativos */
+    --nm-dark: #0A1E2E;
+    --nm-dark-lighter: #1a3345;
+    --nm-accent: #2BA5A0;
+    --nm-accent-hover: #238e8a;
+    --nm-accent-light: rgba(43, 165, 160, 0.1);
+    
+    /* Colores Neutrales Premium */
+    --nm-white: #FFFFFF;
+    --nm-light-gray: #F8F9FA;
+    --nm-gray: #E9ECEF;
+    --nm-medium-gray: #6C757D;
+    --nm-text: #2C3E50;
+    
+    /* Tipografía */
+    --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    
+    /* Sombras Elegantes */
+    --shadow-sm: 0 2px 4px rgba(10, 30, 46, 0.04);
+    --shadow-md: 0 4px 12px rgba(10, 30, 46, 0.08);
+    --shadow-lg: 0 8px 24px rgba(10, 30, 46, 0.12);
+    --shadow-hover: 0 12px 32px rgba(43, 165, 160, 0.15);
+    
+    /* Transiciones Suaves */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   ESTILOS BASE GLOBALES
+   ============================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    color: var(--nm-text);
+    background-color: var(--nm-light-gray);
+    line-height: 1.7;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   TIPOGRAFÍA ELEGANTE
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--nm-dark);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+h1 { font-size: 2.5rem; letter-spacing: -0.5px; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+    margin-bottom: 1rem;
+}
+
+.lead {
+    font-size: 1.125rem;
+    font-weight: 300;
+}
+
+/* ============================================
+   NAVBAR PREMIUM
+   ============================================ */
+
+.navbar {
+    background: var(--nm-white);
+    box-shadow: var(--shadow-sm);
+    padding: 1rem 0;
+    transition: var(--transition);
+    border-bottom: 1px solid rgba(43, 165, 160, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--nm-dark) !important;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+}
+
+.navbar-brand:hover {
+    color: var(--nm-accent) !important;
+    transform: translateY(-1px);
+}
+
+.nav-link {
+    color: var(--nm-text) !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem !important;
+    margin: 0 0.25rem;
+    border-radius: 8px;
+    transition: var(--transition);
+    position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--nm-accent) !important;
+    background-color: var(--nm-accent-light);
+}
+
+.nav-link i {
+    margin-right: 0.25rem;
+}
+
+/* ============================================
+   CARDS PREMIUM
+   ============================================ */
+
+.card {
+    border: none;
+    border-radius: 16px;
+    background: var(--nm-white);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-8px);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    transition: var(--transition);
+    background-color: var(--nm-light-gray);
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title {
+    color: var(--nm-dark);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    color: var(--nm-medium-gray);
+    font-size: 0.9rem;
+}
+
+/* ============================================
+   BOTONES ELEGANTES
+   ============================================ */
+
+.btn {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    border: none;
+    transition: var(--transition);
+    text-transform: none;
+    letter-spacing: 0.3px;
+    font-size: 0.95rem;
+}
+
+.btn-accent {
+    background: linear-gradient(135deg, var(--nm-accent) 0%, var(--nm-accent-hover) 100%);
+    color: var(--nm-white);
+    box-shadow: 0 4px 12px rgba(43, 165, 160, 0.3);
+}
+
+.btn-accent:hover {
+    background: linear-gradient(135deg, var(--nm-accent-hover) 0%, var(--nm-accent) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(43, 165, 160, 0.4);
+    color: var(--nm-white);
+}
+
+.btn-accent:active {
+    transform: translateY(0);
+}
+
+.btn-outline-secondary {
+    border: 2px solid var(--nm-gray);
+    color: var(--nm-medium-gray);
+    background: transparent;
+}
+
+.btn-outline-secondary:hover {
+    background: var(--nm-accent);
+    border-color: var(--nm-accent);
+    color: var(--nm-white);
+    transform: translateY(-2px);
+}
+
+.btn-icon-cart {
+    padding: 0.75rem 1rem;
+    width: auto;
+}
+
+.btn-secondary.disabled {
+    background-color: var(--nm-gray);
+    color: var(--nm-medium-gray);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* ============================================
+   FORMULARIOS ELEGANTES
+   ============================================ */
+
+.form-control,
+.form-select {
+    border: 2px solid var(--nm-gray);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-primary);
+    transition: var(--transition);
+    background-color: var(--nm-white);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--nm-accent);
+    box-shadow: 0 0 0 0.2rem var(--nm-accent-light);
+    outline: none;
+}
+
+/* ============================================
+   FOOTER ELEGANTE
+   ============================================ */
+
+.footer {
+    background: linear-gradient(135deg, var(--nm-dark) 0%, var(--nm-dark-lighter) 100%);
+    color: var(--nm-white);
+    padding: 2rem 0;
+    margin-top: auto;
+    box-shadow: 0 -4px 12px rgba(10, 30, 46, 0.1);
+}
+
+.footer p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* ============================================
+   UTILIDADES PERSONALIZADAS
+   ============================================ */
+
+.text-accent {
+    color: var(--nm-accent) !important;
+}
+
+.bg-accent {
+    background-color: var(--nm-accent) !important;
+}
+
+.bg-dark-custom {
+    background-color: var(--nm-dark) !important;
+}
+
+/* Contenedor principal con espacio superior */
+main {
+    min-height: calc(100vh - 200px);
+}
+
+/* Gap personalizado para grids */
+.g-4 {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 1.5rem;
+}
+
+/* ============================================
+   ANIMACIONES SUTILES
+   ============================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* ============================================
+   SCROLLBAR PERSONALIZADO
+   ============================================ */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--nm-light-gray);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--nm-accent);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--nm-accent-hover);
+}
+
+/* ============================================
+   RESPONSIVE REFINADO
+   ============================================ */
+
+@media (max-width: 768px) {
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    
+    .card-img-top {
+        height: 200px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+    
+    .btn {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================================
+   ESTADOS DE CARGA Y VACÍO
+   ============================================ */
+
+.text-muted {
+    color: var(--nm-medium-gray) !important;
+}
+
+.empty-state {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: var(--nm-gray);
+    margin-bottom: 1rem;
+}
