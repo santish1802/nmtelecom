@@ -1,0 +1,175 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.PreparedStatement" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.SQLException" %>
+<%@ page import="com.utp.nmtelecom.util.DatabaseConnection" %>
+<%@ page import="com.utp.nmtelecom.model.Usuario" %>
+
+<%!
+    /**
+     * Función (declaración de scriptlet) para contar el total de productos.
+     * Es la versión JSP del método contarItemsCarrito.
+     */
+    private int contarItemsCarritoJSP(long usuarioId) {
+        String sql = "SELECT COALESCE(SUM(ic.cantidad), 0) as total FROM item_carrito ic " +
+                "INNER JOIN carrito_compra cc ON ic.carrito_id = cc.idCarrito " +
+                "WHERE cc.usuario_id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+             
+            ps.setLong(1, usuarioId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    // COALESCE(SUM(), 0) asegura que siempre devuelve un número
+                    return rs.getInt("total"); 
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al contar ítems del carrito en JSP: " + e.getMessage());
+        }
+        return 0;
+    }
+%>
+
+<%
+    // 1. Obtener el usuario logueado de la sesión (ESTO DEBE MANTENERSE EN LA SESIÓN)
+    Usuario usuario = (Usuario) session.getAttribute("usuarioLogeado");
+    
+    int carritoCount2 = 0; // Inicializamos el contador
+    
+    if (usuario != null) {
+        // 2. Si el usuario está logueado, calculamos la cuenta DIRECTAMENTE desde la BD
+        //    (Ya no usamos ni guardamos el contador en la sesión)
+        carritoCount2 = contarItemsCarritoJSP(usuario.getIdUsuario());
+    } 
+    // Si usuario es null, carritoCount2 se mantiene en 0.
+%>
+
+<style>
+    /* ============================================
+      ESTILOS GENERALES Y CART-BADGE
+      ============================================ */
+    :root {
+        --nm-dark: #0b2f4f; /* Azul Oscuro (Primario) */
+        --nm-accent: #38a798; /* Cian/Verde (Acento) */
+    }
+    .navbar {
+        background-color: white; /* Fondo blanco */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    .navbar-brand, .nav-link {
+        color: var(--nm-dark) !important;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+    .navbar-brand:hover, .nav-link:hover {
+        color: var(--nm-accent) !important;
+    }
+    .cart-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        font-weight: 700;
+        box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+        z-index: 10;
+    }
+    .nav-link.cart-link {
+        position: relative;
+    }
+    /* Estilo para el nombre de usuario */
+    .user-info {
+        font-weight: 600;
+        color: var(--nm-accent) !important;
+    }
+</style>
+
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/">
+            <i class="fas fa-hexagon" style="color: var(--nm-accent);"></i> NM Telecom
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                data-bs-target="#navbarNav" aria-controls="navbarNav" 
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/">
+                        <i class="fas fa-home"></i> Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/catalogo">
+                        <i class="fas fa-box-open"></i> Productos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/servicios">
+                        <i class="fas fa-cogs"></i> Servicios
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/contacto">
+                        <i class="fas fa-envelope"></i> Contacto
+                    </a>
+                </li>
+
+                <c:choose>
+                    <c:when test="${not empty sessionScope.usuarioLogeado}">
+                        <%-- Si el usuario está logueado --%>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle user-info" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user-circle"></i> ${sessionScope.usuarioLogeado.nombreUsuario}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/perfil"><i class="fas fa-cog me-1"></i> Mi Cuenta</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/logout">
+                                        <i class="fas fa-sign-out-alt me-1"></i> Cerrar Sesión
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <%-- Si el usuario NO está logueado --%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/registro">
+                                <i class="fas fa-user-plus"></i> Registrarse
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${pageContext.request.contextPath}/login">
+                                <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                            </a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+                <li class="nav-item">
+                    <a class="nav-link cart-link" href="${pageContext.request.contextPath}/carrito">
+                        <i class="fas fa-shopping-cart"></i> Carrito
+
+                        <span class="cart-badge <%= carritoCount2 > 0 ? "" : "d-none" %>" id="cart-badge-count">
+                            <%= carritoCount2 %>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

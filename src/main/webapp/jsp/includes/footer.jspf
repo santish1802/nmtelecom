@@ -1,0 +1,236 @@
+<%@ page pageEncoding="UTF-8" %>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style>
+    /* ============================================
+       ESTILOS DEL FOOTER
+       ============================================ */
+    
+    .footer-premium {
+        background: linear-gradient(135deg, var(--nm-dark) 0%, #162d3e 100%);
+        color: var(--nm-white);
+        padding: 3rem 0 1.5rem;
+        margin-top: 5rem;
+        position: relative;
+    }
+    
+    .footer-premium::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--nm-accent), transparent);
+    }
+    
+    .footer-brand {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--nm-white);
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .footer-brand i {
+        color: var(--nm-accent);
+    }
+    
+    .footer-tagline {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+        font-style: italic;
+        margin-bottom: 1.5rem;
+    }
+    
+    .footer-section-title {
+        color: var(--nm-accent);
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .footer-link {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        display: block;
+        padding: 0.4rem 0;
+        transition: var(--transition);
+        font-size: 0.95rem;
+    }
+    
+    .footer-link:hover {
+        color: var(--nm-accent);
+        padding-left: 0.5rem;
+    }
+    
+    .footer-contact-item {
+        display: flex;
+        align-items: start;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .footer-contact-item i {
+        color: var(--nm-accent);
+        font-size: 1.1rem;
+        margin-top: 0.2rem;
+    }
+    
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+    
+    .social-link {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: rgba(43, 165, 160, 0.15);
+        border: 2px solid rgba(43, 165, 160, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--nm-accent);
+        font-size: 1.2rem;
+        transition: var(--transition);
+        text-decoration: none;
+    }
+    
+    .social-link:hover {
+        background: var(--nm-accent);
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(43, 165, 160, 0.4);
+    }
+    
+    .footer-bottom {
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+    }
+    
+    .footer-bottom p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+    }
+    
+    .footer-bottom a {
+        color: var(--nm-accent);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+    
+    .footer-bottom a:hover {
+        color: var(--nm-white);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .footer-premium {
+            padding: 2rem 0 1rem;
+        }
+        
+        .social-links {
+            justify-content: center;
+        }
+    }
+</style>
+
+<footer class="footer-premium">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Company Info -->
+            <div class="col-lg-4 col-md-6">
+                <div class="footer-brand">
+                    <i class="fas fa-hexagon"></i>
+                    NM Telecom
+                </div>
+                <p class="footer-tagline">Innovación y eficiencia en cada solución</p>
+                <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; line-height: 1.6;">
+                    Líderes en tecnología y telecomunicaciones, brindando soluciones 
+                    integrales para empresas y particulares con la mejor calidad del mercado.
+                </p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/nmtelecom" class="social-link" 
+                       target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/nmtelecom" class="social-link" 
+                       target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/51999999999" class="social-link" 
+                       target="_blank" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="tel:+51999999999" class="social-link" aria-label="Teléfono">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="col-lg-2 col-md-6">
+                <h6 class="footer-section-title">Enlaces</h6>
+                <a href="${pageContext.request.contextPath}/" class="footer-link">Inicio</a>
+                <a href="${pageContext.request.contextPath}/catalogo" class="footer-link">Productos</a>
+                <a href="${pageContext.request.contextPath}/servicios" class="footer-link">Servicios</a>
+                <a href="${pageContext.request.contextPath}/nosotros" class="footer-link">Nosotros</a>
+                <a href="${pageContext.request.contextPath}/contacto" class="footer-link">Contacto</a>
+            </div>
+            
+            <!-- Services -->
+            <div class="col-lg-3 col-md-6">
+                <h6 class="footer-section-title">Servicios</h6>
+                <a href="#" class="footer-link">Venta de Equipos</a>
+                <a href="#" class="footer-link">Soporte Técnico</a>
+                <a href="#" class="footer-link">Instalaciones</a>
+                <a href="#" class="footer-link">Mantenimiento</a>
+                <a href="#" class="footer-link">Consultoría IT</a>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="col-lg-3 col-md-6">
+                <h6 class="footer-section-title">Contacto</h6>
+                <div class="footer-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Jirón las Begonias 225<br>San Isidro, Lima - Perú</span>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:info@nmtelecom.pe" style="color: inherit; text-decoration: none;">
+                        info@nmtelecom.pe
+                    </a>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:+51999999999" style="color: inherit; text-decoration: none;">
+                        +51 999 999 999
+                    </a>
+                </div>
+                <div class="footer-contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Lun - Vie: 9:00 AM - 6:00 PM<br>Sábados: 9:00 AM - 1:00 PM</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p>
+                &copy; 2020 - 2025 <strong>NM Telecom S.A.C.</strong> | Todos los derechos reservados | 
+                <a href="#">Términos y Condiciones</a> | 
+                <a href="#">Política de Privacidad</a>
+            </p>
+        </div>
+    </div>
+</footer>
