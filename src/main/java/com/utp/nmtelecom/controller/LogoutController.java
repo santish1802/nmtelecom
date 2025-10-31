@@ -10,6 +10,6 @@ public class LogoutController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/catalogo"; // Redirige al catálogo
+        return "redirect:/productos"; // Redirige al catálogo
     }
 }

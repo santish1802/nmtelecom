@@ -133,7 +133,7 @@ public class CarritoController {
      * Agrega un producto al carrito o incrementa la cantidad si ya existe
      */
     private boolean agregarAlCarrito(long usuarioId, long idProducto) throws SQLException {
-        String sqlProducto = "SELECT precio, stock FROM producto WHERE idProducto = ? AND activo = 1";
+        String sqlProducto = "SELECT p.precio, i.stockActual AS stock FROM producto p JOIN inventario i ON p.idProducto = i.producto_id WHERE p.idProducto = ? AND p.activo = 1";
         double precio = 0;
         int stock = 0;
 

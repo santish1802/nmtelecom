@@ -219,14 +219,29 @@
             </div>
         </div>
         <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="container">
-                <div class="hero-content text-center">
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content text-center">
+            <c:choose>
+                <c:when test="${esServicio}">
+                    <h1 class="page-title">Nuestros Planes y Servicios de Telecom</h1>
+                </c:when>
+                <c:otherwise>
                     <h1 class="page-title">Elige el producto a tu necesidad</h1>
+                </c:otherwise>
+            </c:choose>
+            
+            <c:choose>
+                <c:when test="${esServicio}">
+                    <p class="page-subtitle">Conexión de alta velocidad y soporte dedicado para tu hogar o negocio.</p>
+                </c:when>
+                <c:otherwise>
                     <p class="page-subtitle">Tecnología de vanguardia con la mejor calidad y precio</p>
-                </div>
-            </div>
-        </section>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </div>
+</section>
 
         <!-- Catalog Section -->
         <main class="container mb-5">
@@ -249,10 +264,12 @@
                                     </c:otherwise>
                                 </c:choose>
 
-                                <img src="${pageContext.request.contextPath}/images/${producto.codigo}.png" 
-                                     class="card-img-top" 
-                                     alt="${producto.nombre}"
-                                     onerror="this.src='${pageContext.request.contextPath}/images/placeholder.png'"/>
+                                <img src="${pageContext.request.contextPath}/images/${producto.codigo}.png"
+                                    class="card-img-top"
+                                    alt="${producto.nombre}"
+                                    onerror="
+                                        this.src='${pageContext.request.contextPath}/images/placeholder.png';
+                                        this.style.objectFit = 'cover';"/>
                             </div>
 
                             <div class="card-body d-flex flex-column">
@@ -261,37 +278,62 @@
                                     <i class="fas fa-tag"></i> ${producto.categoria}
                                 </span>
 
-                                <div class="mt-auto">
-                                    <span class="price-label">Precio:</span>
-                                    <h4 class="product-price">
-                                        <fmt:setLocale value="es_PE"/>
-                                        S/. <fmt:formatNumber value="${producto.precio}" type="number" groupingUsed="true" minFractionDigits="2" maxFractionDigits="2"/>
-                                    </h4>
+<div class="mt-auto">
+    <span class="price-label">Precio:</span>
+    <h4 class="product-price">
+        <fmt:setLocale value="es_PE"/>
+        S/. <fmt:formatNumber value="${producto.precio}" type="number" groupingUsed="true" minFractionDigits="2" maxFractionDigits="2"/>
+    </h4>
 
-                                    <c:choose>
-                                        <c:when test="${producto.stock > 0}">
-                                            <div class="d-flex gap-2">
-                                                <button type="button" 
-                                                        class="btn btn-accent flex-grow-1 btn-comprar"
-                                                        onclick="agregarAlCarrito(${producto.idProducto}, this)">
-                                                    <i class="fas fa-shopping-bag"></i> Comprar
-                                                </button>
-                                                <button type="button" 
-                                                        class="btn btn-outline-secondary btn-icon-cart" 
-                                                        onclick="agregarAlCarrito(${producto.idProducto}, this)"
-                                                        title="Agregar al carrito">
-                                                    <i class="fas fa-cart-plus"></i>
-                                                </button>
-                                            </div>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <button class="btn btn-secondary disabled w-100" disabled>
-                                                <i class="fas fa-ban"></i> Sin Stock
-                                            </button>
-                                        </c:otherwise>
-                                    </c:choose>
+    <c:choose>
+        <%-- Lógica principal: Verifica si hay stock (o si es servicio) --%>
+        <%-- Asumimos que los servicios siempre están disponibles para mostrar el botón/enlace --%>
+        <c:when test="${producto.stock > 0 || producto.categoria == 'Servicios'}">
+            
+            <c:choose>
+                <%-- Opción 1: Es un Servicio (usa un <a> de "Ver Detalles/Contratar") --%>
+                <c:when test="${producto.categoria == 'Servicios'}">
+                    <div class="d-grid">
+                        <a href="${pageContext.request.contextPath}/servicio/detalle/${producto.idProducto}" 
+                           class="btn btn-accent flex-grow-1"
+                           title="Ver detalles del servicio">
+                            <i class="fas fa-file-contract"></i> Ver Detalles / Contratar
+                        </a>
+                    </div>
+                </c:when>
+                
+                <%-- Opción 2: Es un Producto (se reemplaza el botón 'Comprar' por un <a>) --%>
+                <c:otherwise>
+                    <div class="d-flex gap-2">
+                        
+                        <%-- *** MODIFICACIÓN AQUÍ: <button> reemplazado por <a> *** --%>
+                        <a href="${pageContext.request.contextPath}/producto/detalle/${producto.idProducto}" 
+                           class="btn btn-accent flex-grow-1" 
+                           title="Comprar o ver detalles del producto">
+                            <i class="fas fa-shopping-bag"></i> Comprar
+                        </a>
+                        
+                        <button type="button" 
+                                class="btn btn-outline-secondary btn-icon-cart" 
+                                onclick="agregarAlCarrito(${producto.idProducto}, this)"
+                                title="Agregar al carrito">
+                            <i class="fas fa-cart-plus"></i>
+                        </button>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+            
+        </c:when>
+        
+        <%-- Opción 3: Agotado (solo aplica a Productos sin stock) --%>
+        <c:otherwise>
+            <button class="btn btn-secondary disabled w-100" disabled>
+                <i class="fas fa-ban"></i> Sin Stock
+            </button>
+        </c:otherwise>
+    </c:choose>
 
-                                </div>
+</div>
                             </div>
                         </div>
                     </div>

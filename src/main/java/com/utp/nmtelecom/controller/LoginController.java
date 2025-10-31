@@ -45,7 +45,7 @@ public class LoginController {
                 logger.info("LOGIN EXITOSO: Usuario ID {} ({}) ha iniciado sesión.", 
                              usuario.getIdUsuario(), nombreUsuario);
                 
-                return "redirect:/catalogo";
+                return "redirect:/productos";
             } else {
                 // LÍNEA AÑADIDA: Log::WARN - Acceso Fallido
                 logger.warn("LOGIN FALLIDO: Credenciales incorrectas para el usuario: {}", nombreUsuario);

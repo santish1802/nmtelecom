@@ -89,7 +89,7 @@
             ¿No tienes cuenta? <a href="${pageContext.request.contextPath}/registro" class="text-decoration-none" style="color: var(--nm-accent);">Regístrate</a>
         </p>
         <p class="text-center">
-            <a href="${pageContext.request.contextPath}/catalogo" class="text-decoration-none text-secondary">
+            <a href="${pageContext.request.contextPath}/productos" class="text-decoration-none text-secondary">
                 <i class="fas fa-home me-1"></i> Volver al Catálogo
             </a>
         </p>

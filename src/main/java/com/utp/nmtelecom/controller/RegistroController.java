@@ -38,7 +38,7 @@ public class RegistroController {
 
             if (idGenerado != null) {
                 session.setAttribute("usuarioLogeado", nuevoUsuario);
-                return "redirect:/catalogo";
+                return "redirect:/productos";
             } else {
                 model.addAttribute("mensaje", "Error al registrar el usuario. El nombre o email ya existen.");
                 return "registro";

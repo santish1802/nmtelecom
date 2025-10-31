@@ -115,7 +115,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/catalogo">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/productos">
                         <i class="fas fa-box-open"></i> Productos
                     </a>
                 </li>

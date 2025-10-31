@@ -182,7 +182,7 @@
             <div class="col-lg-2 col-md-6">
                 <h6 class="footer-section-title">Enlaces</h6>
                 <a href="${pageContext.request.contextPath}/" class="footer-link">Inicio</a>
-                <a href="${pageContext.request.contextPath}/catalogo" class="footer-link">Productos</a>
+                <a href="${pageContext.request.contextPath}/productos" class="footer-link">Productos</a>
                 <a href="${pageContext.request.contextPath}/servicios" class="footer-link">Servicios</a>
                 <a href="${pageContext.request.contextPath}/nosotros" class="footer-link">Nosotros</a>
                 <a href="${pageContext.request.contextPath}/contacto" class="footer-link">Contacto</a>

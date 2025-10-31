@@ -16,28 +16,42 @@ import java.util.logging.Logger;
 public class CatalogoController {
     private static final Logger LOGGER = Logger.getLogger(CatalogoController.class.getName());
 
-    // Inyección manual simple (puedes usar @Autowired más adelante)
     private final IProductoDAO productoDAO = new ProductoDAO();
 
-    @GetMapping("/catalogo")
-    public String mostrarCatalogo(Model model) {
+    // 1. Endpoint para /productos (Excluye "Servicios")
+    // URL: http://localhost:8087/productos
+    @GetMapping("/productos")
+    public String mostrarProductos(Model model) {
         try {
-            // 1. Lógica de negocio (Modelo)
             List<Producto> productos = productoDAO.listarActivos();
-
-            // 2. Pasar datos a la vista
             model.addAttribute("productos", productos);
-
-            // 3. Mostrar vista JSP
-            return "jsp/catalogo"; // -> src/main/webapp/jsp/catalogo.jsp
+            // Bandera para personalización: es un catálogo de productos
+            model.addAttribute("esServicio", false); 
+            return "jsp/catalogo";
 
         } catch (SQLException e) {
-            // 1. Logear el error
-            LOGGER.log(Level.SEVERE, "Error en la conexión o consulta a la base de datos.", e);
+            LOGGER.log(Level.SEVERE, "Error DB al cargar productos.", e);
+            return "ERROR DE BASE DE DATOS: No se pudo cargar el catálogo de productos. Detalle: " + e.getMessage();
+        }
+    }
 
-            // 2. Devolver el error como texto plano (o HTML simple)
-            // La URL sigue siendo /catalogo, pero el contenido es solo el error.
-            return "ERROR DE BASE DE DATOS: No se pudo cargar el catálogo. Detalle: " + e.getMessage();
+    // 2. Endpoint para /servicio (Solo "Servicios")
+    // URL: http://localhost:8087/servicio
+    @GetMapping("/servicios") // Corregido de /servicios a /servicio
+    public String mostrarServicios(Model model) {
+        try {
+            List<Producto> servicios = productoDAO.listarServiciosActivos();
+            
+            model.addAttribute("productos", servicios); 
+            
+            // Bandera para personalización: es un catálogo de servicios
+            model.addAttribute("esServicio", true); 
+            
+            return "jsp/catalogo";
+
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error DB al cargar servicios.", e);
+            return "ERROR DE BASE DE DATOS: No se pudo cargar el catálogo de servicios. Detalle: " + e.getMessage();
         }
     }
 }

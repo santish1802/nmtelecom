@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 /**
  * Clase POJO (Plain Old Java Object) que representa la entidad Producto.
- * (Cumple con el Principio de Responsabilidad Única - SOLID S)
  */
 public class Producto implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -13,6 +12,7 @@ public class Producto implements Serializable {
     private Long idProducto;
     private String codigo;
     private String nombre;
+    private String descripcion; // <--- CAMBIO 1: Nuevo campo para la descripción
     private BigDecimal precio;
     private String categoria;
     private Integer stock;
@@ -21,11 +21,12 @@ public class Producto implements Serializable {
     // Constructor vacío (necesario para frameworks)
     public Producto() {}
 
-    // Constructor completo
-    public Producto(Long idProducto, String codigo, String nombre, BigDecimal precio, String categoria, Integer stock, Boolean activo) {
+    // Constructor completo - ACTUALIZADO para incluir descripcion
+    public Producto(Long idProducto, String codigo, String nombre, String descripcion, BigDecimal precio, String categoria, Integer stock, Boolean activo) {
         this.idProducto = idProducto;
         this.codigo = codigo;
         this.nombre = nombre;
+        this.descripcion = descripcion; // <--- CAMBIO 2: Asignación
         this.precio = precio;
         this.categoria = categoria;
         this.stock = stock;
@@ -42,6 +43,10 @@ public class Producto implements Serializable {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
+    // NUEVOS GETTER Y SETTER
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
     public BigDecimal getPrecio() { return precio; }
     public void setPrecio(BigDecimal precio) { this.precio = precio; }
 
@@ -55,7 +60,7 @@ public class Producto implements Serializable {
     public void setActivo(Boolean activo) { this.activo = activo; }
     
     /**
-     * Lógica simple de negocio (cumple TDD: primero se prueba, luego se implementa)
+     * Lógica simple de negocio
      * @return true si el stock es mayor a 0
      */
     public boolean validarStock() {
