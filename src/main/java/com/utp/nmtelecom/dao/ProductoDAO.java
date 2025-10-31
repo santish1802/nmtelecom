@@ -52,9 +52,27 @@ public class ProductoDAO implements IProductoDAO {
 
     @Override
     public Producto obtenerPorId(Long id) throws SQLException {
-        // Implementación simplificada (solo se necesita el método 'listarActivos' para el catálogo inicial)
-        // ... (Implementación completa con PreparedStatement para obtener un producto específico)
-        return null;
+        Producto producto = null;
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(SQL_OBTENER_POR_ID)) {
+            ps.setLong(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    producto = new Producto();
+                    producto.setIdProducto(rs.getLong("idProducto"));
+                    producto.setCodigo(rs.getString("codigo"));
+                    producto.setNombre(rs.getString("nombre"));
+                    producto.setPrecio(rs.getBigDecimal("precio"));
+                    producto.setCategoria(rs.getString("categoria"));
+                    producto.setStock(rs.getInt("stock"));
+                    producto.setActivo(rs.getBoolean("activo"));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error al obtener producto por ID.", e);
+            throw e;
+        }
+        return producto;
     }
 
     // Los métodos 'agregar', 'actualizar', 'eliminar' se implementan al hacer el módulo CRUD
