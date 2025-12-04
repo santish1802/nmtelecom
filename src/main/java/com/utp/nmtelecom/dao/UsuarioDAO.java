@@ -11,13 +11,11 @@ import java.sql.Statement;
 
 /**
  * DAO para la gestión de la tabla 'usuario'
- * Utiliza la clase Conexion para obtener las conexiones a la BD.
+ * Utiliza la clase DatabaseConnection para obtener las conexiones a la BD.
  */
 public class UsuarioDAO {
 
     /**
-     * Reemplazamos el método getConnection() por una llamada directa a DatabaseConnection.getConnection()
-     * para usar el try-with-resources de forma segura en cada método.
      * * @param usuario El objeto Usuario a registrar.
      * @return El ID generado del nuevo usuario o null si falló el registro (ej: duplicado).
      * @throws SQLException 

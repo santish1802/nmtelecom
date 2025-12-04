@@ -21,55 +21,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/custom-style.css">
 
         <style>
-            /* ============================================
-               ESTILOS ESPECÍFICOS DEL CATÁLOGO
-               ============================================ */
-
-            /* Hero Section */
-            .btn-icon-cart {
-                width: 45px;
-                padding: 0.5rem;
-            }
-            .hero-section {
-                background: linear-gradient(135deg, var(--nm-dark) 0%, var(--nm-dark-lighter) 100%);
-                padding: 4rem 0 3rem;
-                margin-bottom: 3rem;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .hero-section::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(43,165,160,0.05)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
-                opacity: 0.3;
-            }
-
-            .hero-content {
-                position: relative;
-                z-index: 1;
-            }
-
-            .page-title {
-                font-weight: 300;
-                letter-spacing: 1px;
-                color: var(--nm-white);
-                margin-bottom: 0.5rem;
-                font-size: 2.75rem;
-                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-
-            .page-subtitle {
-                color: var(--nm-accent);
-                font-size: 1.1rem;
-                font-weight: 400;
-                opacity: 0.95;
-            }
-
+ 
             /* Product Cards */
             .product-card {
                 position: relative;
@@ -422,7 +374,7 @@
         
         $.ajax({
             type: 'POST',
-            url: '${pageContext.request.contextPath}/carrito',
+            url: '${pageContext.request.contextPath}/carritoAgregar',
             data: {
                 idProducto: idProducto,
                 accion: 'agregar'

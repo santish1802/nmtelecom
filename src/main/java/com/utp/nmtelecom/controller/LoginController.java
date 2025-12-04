@@ -40,6 +40,7 @@ public class LoginController {
             Usuario usuario = usuarioDAO.autenticar(nombreUsuario, password);
             if (usuario != null) {
                 session.setAttribute("usuarioLogeado", usuario);
+                session.setAttribute("rolUsuario", usuario.getRol());
                 
                 // LÍNEA AÑADIDA: Log::INFO - Acceso Exitoso (RNF-02 OK)
                 logger.info("LOGIN EXITOSO: Usuario ID {} ({}) ha iniciado sesión.", 

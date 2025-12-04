@@ -15,12 +15,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RestController
-@RequestMapping("/carrito")
+@RequestMapping("/carritoAgregar")
 public class CarritoController {
 
-    // LÍNEA AÑADIDA: Declaración del Logger
     private static final Logger logger = LoggerFactory.getLogger(CarritoController.class);
-
 
     /**
      * Maneja POST: Agregar producto al carrito (AJAX)
